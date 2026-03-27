@@ -43,12 +43,13 @@ export class AngularLanguageClient implements vscode.Disposable {
     this.outputChannel = vscode.window.createOutputChannel(this.name);
     // Options to control the language client
     this.clientOptions = {
-      // Register the server for Angular templates and TypeScript documents
+      // Register the server for Angular templates
       documentSelector: [
         // scheme: 'file' means listen to changes to files on disk only
         // other option is 'untitled', for buffer in the editor (like a new doc)
         {scheme: 'file', language: 'html'},
-        {scheme: 'file', language: 'typescript'},
+        // Do not participate in VS Code quick fixes / code actions for TypeScript files.
+        // {scheme: 'file', language: 'typescript'},
       ],
       synchronize: {
         fileEvents: [
@@ -66,16 +67,7 @@ export class AngularLanguageClient implements vscode.Disposable {
         provideCodeActions: async (
             document: vscode.TextDocument, range: vscode.Range, context: vscode.CodeActionContext,
             token: vscode.CancellationToken, next: lsp.ProvideCodeActionsSignature) => {
-          // Do not participate in VS Code quick fixes / code actions for TypeScript files.
-          // The built-in TypeScript extension already provides code actions for `.ts` and we
-          // don't want Angular LS to intercept or duplicate them.
-          //
-          // Note: this also disables Angular-provided code actions for inline templates/styles
-          // inside TypeScript files; external template files (`html`) are unaffected.
-          if (document.languageId === 'typescript') {
-            return;
-          }
-
+          
           // Code actions can trigger also outside of `@Component(<...>)` fields.
           if (await this.isInAngularProject(document)) {
             return next(document, range, context, token);
