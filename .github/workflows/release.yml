@@ -1,0 +1,55 @@
+name: Build and Release VSIX
+
+on:
+  workflow_dispatch:
+    inputs:
+      prerelease:
+        description: 'Mark the GitHub release as a pre-release'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Read version from package.json
+        id: version
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build VSIX
+        run: yarn bazel build //:vsix --config=release
+
+      - name: Stage VSIX artifact
+        run: cp bazel-bin/ng-template.vsix "ng-template-${{ steps.version.outputs.version }}.vsix"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ng-template-${{ steps.version.outputs.version }}.vsix
+          path: ng-template-${{ steps.version.outputs.version }}.vsix
+          if-no-files-found: error
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "v${{ steps.version.outputs.version }}" \
+            "ng-template-${{ steps.version.outputs.version }}.vsix" \
+            --title "v${{ steps.version.outputs.version }}" \
+            --generate-notes \
+            ${{ inputs.prerelease && '--prerelease' || '' }}
