@@ -1,3 +1,53 @@
+# 20.3.0
+
+This release upgrades `@angular/language-service` to v20.3.5.
+
+# 20.2.2
+
+This release upgrades `@angular/language-service` to v20.2.0-rc.1.
+
+| Commit | Type | Description |
+| -- | -- | -- |
+| [c81e345e72](https://github.com/angular/angular/commit/c81e345e726b5b281621159c789e6d80a9f328e2) | feat | support auto-import for attribute completions ([#62797](https://github.com/angular/angular/pull/62797)) |
+| [4aa120ac00](https://github.com/angular/angular/commit/4aa120ac000a569a29e45e9c6db9e4f32c61d183) | fix | error when type checking host bindings of generic directive ([#63061](https://github.com/angular/angular/pull/63061)) |
+
+
+# 20.2.1
+
+This release upgrades `@angular/language-service` to v20.2.0-next.6.
+
+| Commit | Type | Description |
+| -- | -- | -- |
+| [812463c563](https://github.com/angular/angular/commit/812463c5636effe5bd5ba5c7c7fc65c3cc08d047) | fix | Ignore diagnostics on ngTemplateContextGuard lines in TCB ([#63054](https://github.com/angular/angular/pull/63054)) |
+| [45b030b5ce](https://github.com/angular/angular/commit/45b030b5ce1e116a88fe1c2fe133f654fb1f66c5) | fix | prevent dom event assertion in TCB generation on older angular versions ([#63053](https://github.com/angular/angular/pull/63053)) |
+
+# 20.2.0
+
+This release upgrades `@angular/language-service` to v20.2.0-next.5.
+
+* [feat(language-service): support to report the deprecated API in the template](https://github.com/angular/vscode-ng-language-service/pull/2192)
+
+# 20.1.1
+
+* [fix(server): Remove custom semantic tokens to fix regression in file highlighting](https://github.com/angular/vscode-ng-language-service/pull/2197)
+
+# 20.1.0
+This release upgrades `@angular/language-service` to v20.1.0-rc.0.
+
+* [feat(language-server): Support semantic tokens for components in templates](https://github.com/angular/vscode-ng-language-service/commit/1c0fd4e94daf3d082c0f629d9ec0e32ff290b354)
+* [feat(language-server): Support external modules in autocomplete](https://github.com/angular/vscode-ng-language-service/commit/a39e01df7d474b1495ea93dd64c26880c54ec4de)
+* [feat(language-service): Quick fix missing required inputs](https://github.com/angular/angular/commit/5d2e85920e714560e8d06bfb9c41d9312eeaae3b)
+
+# 20.0.1
+This release upgrades `@angular/language-service` to v20.0.0-rc.2.
+
+* [fix(language-server): fix	Always retain prior results for all files](https://github.com/angular/angular/pull/61487)
+
+# 20.0.0
+This release upgrades `@angular/language-service` to v20.0.0-rc.0.
+
+* [feat(language-server): support type checking of host bindings](https://github.com/angular/angular/pull/60267)
+
 # 19.2.4
 This release upgrades `@angular/language-service` to v19.2.7.
 
